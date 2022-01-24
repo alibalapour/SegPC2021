@@ -59,7 +59,7 @@ def unet(pretrained_weights = None,input_size = (256,256,1), LR = 1e-4):
 
 
 
-    model = Model(input = inputs, output = [conv10, conv11])
+    model = Model(inputs, [conv10, conv11])
 
     model.compile(optimizer = Adam(lr = LR), loss = 'binary_crossentropy', metrics = ['accuracy'])
     
@@ -112,7 +112,7 @@ def unet_dns(input_shape, pretrained_weights=None, LR=1e-4, out_ch=1):
     conv9 = Conv2D(2, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9)
     conv10 = Conv2D(out_ch, 1, activation = 'sigmoid')(conv9)
 
-    model = Model(input = inputs, output = conv10)
+    model = Model(inputs, conv10)
 
     model.compile(optimizer = Adam(lr = LR), loss = 'binary_crossentropy', metrics = ['accuracy'])
     
@@ -135,7 +135,7 @@ def joint_net(input_size = (256, 256, 1), LR = 1e-4, OUt_ch = 1):
     conv3 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv3)
     conv9 = Conv2D(2, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv3)
     conv10 = Conv2D(OUt_ch, 1, activation = 'sigmoid')(conv9)
-    model = Model(input = inputs, output = conv10)
+    model = Model(inputs, conv10)
 
     model.compile(optimizer = Adam(lr = LR), loss = 'binary_crossentropy', metrics = ['accuracy'])
     return model
@@ -196,7 +196,7 @@ def unet_dnspro(input_shape, pretrained_weights=None, LR = 1e-4, out_ch = 1):
     conv9 = Conv2D(2, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9)
     conv10 = Conv2D(out_ch, 1, activation = 'sigmoid')(conv9)
 
-    model = Model(input = inputs, output = conv10)
+    model = Model(inputs, conv10)
 
     model.compile(optimizer = Adam(lr = LR), loss = 'binary_crossentropy', metrics = ['accuracy'])
     
