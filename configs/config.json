@@ -1,6 +1,6 @@
 {
   "DATA": {
-    "X_DIR": "./dataset/test/x/",
+    "X_DIR": "./dataset/test/",
     "NPY_DIR": "./data/",
     "X_FILE_TYPE_EXTENSION": ".bmp"
   },
