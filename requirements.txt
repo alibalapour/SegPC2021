@@ -69,7 +69,7 @@ ptyprocess==0.6.0
 pycocotools==2.0.0
 pycurl==7.43.0
 Pygments==2.4.2
-pygobject==3.20.0
+pygobject
 pyparsing==2.4.0
 pyrsistent==0.15.2
 python-apt==1.1.0b1+ubuntu0.16.4.2
