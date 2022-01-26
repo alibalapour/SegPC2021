@@ -55,7 +55,7 @@ class BilinearUpsampling(Layer):
         super(BilinearUpsampling, self).__init__(**kwargs)
 
         self.data_format = conv_utils.normalize_data_format(data_format)
-        self.name = l_name
+        self._name = l_name
         self.input_spec = InputSpec(ndim=4)
         if output_size:
             self.upsample_size = conv_utils.normalize_tuple(
@@ -292,7 +292,7 @@ def Deeplabv3pa(weights='pascal_voc', input_tensor=None, input_shape=(512, 512, 
                 use_bias=False, name='image_pooling')(b4)
     b4 = BatchNormalization(name='image_pooling_BN', epsilon=1e-5)(b4)
     b4 = Activation('relu')(b4)
-    b4 = BilinearUpsampling((out_shape, out_shape))(b4)
+    b4 = BilinearUpsampling((out_shape, out_shape), name='up1')(b4)
     b0_1 = Conv2D(256, (3, 3), activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(b0)    
     b0_1 = Conv2D(256, (3, 3), activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(b0_1)
     b0_1 = Dropout(0.5)(b0_1)
