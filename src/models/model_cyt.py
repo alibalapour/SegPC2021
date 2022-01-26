@@ -55,7 +55,7 @@ class BilinearUpsampling(Layer):
         super(BilinearUpsampling, self).__init__(**kwargs)
 
         self.data_format = conv_utils.normalize_data_format(data_format)
-        self._name = l_name
+        # self._name = l_name
         self.input_spec = InputSpec(ndim=4)
         if output_size:
             self.upsample_size = conv_utils.normalize_tuple(
