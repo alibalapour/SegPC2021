@@ -41,6 +41,8 @@ from keras.layers.core import Lambda
 from keras.utils.data_utils import get_file
 from keras.layers import Add
 
+from tensorflow.compat.v1.image import resize_bilinear
+
 
 TF_WEIGHTS_PATH = "https://github.com/bonlime/keras-deeplab-v3-plus/releases/download/1.1/deeplabv3_xception_tf_dim_ordering_tf_kernels.h5"
 class BilinearUpsampling(Layer):
@@ -55,7 +57,7 @@ class BilinearUpsampling(Layer):
         super(BilinearUpsampling, self).__init__(**kwargs)
 
         self.data_format = conv_utils.normalize_data_format(data_format)
-        # self._name = l_name
+        self._name = l_name
         self.input_spec = InputSpec(ndim=4)
         if output_size:
             self.upsample_size = conv_utils.normalize_tuple(
@@ -80,11 +82,11 @@ class BilinearUpsampling(Layer):
 
     def call(self, inputs):
         if self.upsampling:
-            return K.tf.image.resize_bilinear(inputs, (inputs.shape[1] * self.upsampling[0],
+            return  resize_bilinear(inputs, (inputs.shape[1] * self.upsampling[0],
                                                        inputs.shape[2] * self.upsampling[1]),
                                               align_corners=True, name = self.name )
         else:
-            return K.tf.image.resize_bilinear(inputs, (self.upsample_size[0],
+            return  resize_bilinear(inputs, (self.upsample_size[0],
                                                        self.upsample_size[1]),
                                               align_corners=True, name= self.name )
 
@@ -292,7 +294,7 @@ def Deeplabv3pa(weights='pascal_voc', input_tensor=None, input_shape=(512, 512, 
                 use_bias=False, name='image_pooling')(b4)
     b4 = BatchNormalization(name='image_pooling_BN', epsilon=1e-5)(b4)
     b4 = Activation('relu')(b4)
-    b4 = BilinearUpsampling((out_shape, out_shape), name='up1')(b4)
+    b4 = BilinearUpsampling((out_shape, out_shape), l_name='up1')(b4)
     b0_1 = Conv2D(256, (3, 3), activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(b0)    
     b0_1 = Conv2D(256, (3, 3), activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(b0_1)
     b0_1 = Dropout(0.5)(b0_1)
@@ -399,7 +401,7 @@ def Deeplabv3pa(weights='pascal_voc', input_tensor=None, input_shape=(512, 512, 
     else:
         inputs = img_input
 
-    model = Model(inputs, x1, name='deeplabv3+')
+    model = Model(inputs, x1, name='deeplabv3')
 
     # load pretrained_weights
     if pretrained_weights:
