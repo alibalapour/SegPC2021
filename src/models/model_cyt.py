@@ -292,7 +292,7 @@ def Deeplabv3pa(weights='pascal_voc', input_tensor=None, input_shape=(512, 512, 
                 use_bias=False, name='image_pooling')(b4)
     b4 = BatchNormalization(name='image_pooling_BN', epsilon=1e-5)(b4)
     b4 = Activation('relu')(b4)
-    b4 = BilinearUpsampling((out_shape, out_shape), l_name = 'up1_new')(b4)
+    b4 = BilinearUpsampling((out_shape, out_shape))(b4)
     b0_1 = Conv2D(256, (3, 3), activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(b0)    
     b0_1 = Conv2D(256, (3, 3), activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(b0_1)
     b0_1 = Dropout(0.5)(b0_1)
