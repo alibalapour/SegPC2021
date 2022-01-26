@@ -7,7 +7,7 @@ Deeplab base model from: https://github.com/bonlime/keras-deeplab-v3-plus/blob/m
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-from keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam
 import os
 import warnings
 import numpy as np
@@ -30,9 +30,9 @@ from keras.layers import ZeroPadding2D
 from keras.layers import GlobalAveragePooling2D
 from keras.layers import GlobalMaxPooling2D
 from keras.layers import AveragePooling2D
-from keras.engine import Layer
-from keras.engine import InputSpec
-from keras.engine.topology import get_source_inputs
+from tensorflow.keras.layers import Layer
+from tensorflow.keras.layers import InputSpec
+from tensorflow.keras.utils import get_source_inputs
 from keras import backend as K
 from keras.applications import imagenet_utils
 from keras.utils import conv_utils
